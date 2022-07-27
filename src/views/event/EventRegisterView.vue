@@ -1,5 +1,7 @@
 <template>
-  <p>Registration here</p>
+  <p>Airline name: {{ event.airline[0].name }}</p>
+  <p>Airline slogan: {{ event.airline[0].slogan }}</p>
+  <p>head_quaters: {{ event.airline[0].head_quaters }}</p>
 </template>
 
 <script>

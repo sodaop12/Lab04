@@ -3,7 +3,7 @@ import EventListView from '../views/EventListView.vue'
 import AboutView from '../views/AboutView.vue'
 import EventDetailView from '../views/event/EventDetailView.vue'
 import EventRegisterView from '../views/event/EventRegisterView.vue'
-import EventEditView from '../views/event/EventEditView.vue'
+
 import EventLayoutView from '../views/event/EventLayoutView.vue'
 import NetWorkErrorView from '../views/NetworkErrorView.vue'
 import NotFoundView from '../views/NotFoundView.vue'
@@ -12,7 +12,7 @@ const routes = [
     path: '/',
     name: 'EventList',
     component: EventListView,
-    props: (route) => ({ page: parseInt(route.query.page) || 1, limit: 1 })
+    props: (route) => ({ page: parseInt(route.query.page) || 1, limit: 5 })
   },
   {
     path: '/about',
@@ -35,12 +35,6 @@ const routes = [
         path: 'register',
         name: 'EventRegister',
         component: EventRegisterView,
-        props: true
-      },
-      {
-        path: 'edit',
-        name: 'EventEdit',
-        component: EventEditView,
         props: true
       }
     ]

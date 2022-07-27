@@ -1,30 +1,11 @@
 <template>
-  <h1>Events For Good</h1>
+  <h1>Passenger</h1>
   <div class="events">
     <EventCard
-      v-for="event in events"
-      :key="event.id"
+      v-for="event in events.data"
+      :key="event._id"
       :event="event"
     ></EventCard>
-    <div class="pagination">
-      <router-link
-        id="page-prev"
-        :to="{ name: 'EventList', query: { page: page - 1 } }"
-        rel="prev"
-        v-if="page != 1"
-      >
-        Prev Page
-      </router-link>
-
-      <router-link
-        id="page-next"
-        :to="{ name: 'EventList', query: { page: page + 1 } }"
-        rel="next"
-        v-if="hasNextPage"
-      >
-        Next Page
-      </router-link>
-    </div>
   </div>
 </template>
 
@@ -56,10 +37,11 @@ export default {
   },
   created() {
     watchEffect(() => {
-      EventService.getEvents(this.limit, this.page)
+      EventService.getEvents(this.page, this.limit)
         .then((response) => {
           this.events = response.data
           this.totalEvents = response.headers['x-total-count']
+          console.log(this.events.data[0].airline[0].name)
         })
         .catch((error) => {
           console.log(error)

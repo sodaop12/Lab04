@@ -1,6 +1,6 @@
 <template>
-  <p>{{ event.time }} on {{ event.date }} @ {{ event.location }}</p>
-  <p>{{ event.description }}</p>
+  <p>Name: {{ event.name }}</p>
+  <p>PassengerID: {{ event._id }}</p>
 </template>
 
 <script>
