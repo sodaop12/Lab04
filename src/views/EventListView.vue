@@ -68,7 +68,7 @@ export default {
   },
   computed: {
     hasNextPage() {
-      let totalPages = Math.ceil(this.totalEvents / 2)
+      let totalPages = Math.ceil(this.totalEvents / this.limit)
       return this.page < totalPages
     }
   }
