@@ -2,7 +2,7 @@
   <h1>Passenger</h1>
   <div class="events">
     <EventCard
-      v-for="event in events.data"
+      v-for="event in events[0].data"
       :key="event._id"
       :event="event"
     ></EventCard>
@@ -16,43 +16,25 @@ import EventService from '@/services/EventService.js'
 import { watchEffect } from '@vue/runtime-core'
 export default {
   name: 'EventListView',
-  props: {
-    page: {
-      type: Number,
-      required: true
-    },
-    limit: {
-      type: Number,
-      required: true
-    }
-  },
+  props: {},
   components: {
     EventCard
   },
   data() {
     return {
-      events: null,
-      totalEvents: 0
+      events: null
     }
   },
   created() {
     watchEffect(() => {
-      EventService.getEvents(this.page, this.limit)
+      EventService.getEventsPass()
         .then((response) => {
           this.events = response.data
-          this.totalEvents = response.headers['x-total-count']
-          console.log(this.events.data[0].airline[0].name)
         })
         .catch((error) => {
           console.log(error)
         })
     })
-  },
-  computed: {
-    hasNextPage() {
-      let totalPages = Math.ceil(this.totalEvents / 2)
-      return this.page < totalPages
-    }
   }
 }
 </script>

@@ -1,6 +1,5 @@
 <template>
-  <div v-if="event">
-    <h1>{{ event.title }}</h1>
+  <div v-if="events">
     <div id="nav">
       <router-link :to="{ name: 'EventDetails', params: { id } }">
         Passenger
@@ -9,7 +8,7 @@
         Airline
       </router-link>
     </div>
-    <router-view :event="event" />
+    <router-view :events="events" />
   </div>
 </template>
 
@@ -19,19 +18,35 @@ export default {
   props: ['id'],
   data() {
     return {
-      event: null
+      event: null,
+      events: null
     }
   },
   created() {
-    EventService.getEvent(this.id)
+    EventService.getEventsPass()
       .then((response) => {
-        this.event = response.data
+        let pass = response.data
+        pass.forEach((element) => {
+          element.data
+          this.event = element.data
+        })
+        for (let index = 0; index < this.event.length; index++) {
+          if (this.event[index]._id == this.id) {
+            this.events = this.event[index]
+          }
+        }
+        if (this.events == null) {
+          this.$router.push({
+            name: '404Resource',
+            params: { resource: this.id }
+          })
+        }
       })
       .catch((error) => {
         if (error.response && error.response.status == 404) {
           this.$router.push({
             name: '404Resource',
-            params: { resource: 'event' }
+            params: { resource: this.id }
           })
         } else {
           this.$router.push({ name: 'NetworkError' })

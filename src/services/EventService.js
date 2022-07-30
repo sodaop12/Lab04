@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const apiClient = axios.create({
-  baseURL: 'https://api.instantwebtools.net/v1',
+  baseURL: 'http://localhost:3004',
   withCredentials: false,
   headers: {
     Accept: 'application/json',
@@ -10,10 +10,11 @@ const apiClient = axios.create({
 })
 
 export default {
-  getEvents(page, perPage) {
-    return apiClient.get('/passenger?page=' + page + '&size=' + perPage)
+  getEventsAir() {
+    return apiClient.get('/airline')
   },
-  getEvent(id) {
-    return apiClient.get('/passenger/' + id)
+  //Added new call
+  getEventsPass() {
+    return apiClient.get('/passengers')
   }
 }
